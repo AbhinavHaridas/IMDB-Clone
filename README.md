@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 # imdb_clone
 
 This is a project for an imdb clone I have build using flutter
@@ -17,5 +16,4 @@ For help getting started with Flutter development, view the
 samples, guidance on mobile development, and a full API reference.
 =======
 # IMDB-Clone
-This is a repository for an imdb clone I have build using flutter
->>>>>>> 0af029d9ff109c1ffcb7f8b6ae8154341048748d
+This is a repository for an imdb clone I have build using flutter.
