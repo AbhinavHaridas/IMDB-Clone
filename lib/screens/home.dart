@@ -414,20 +414,48 @@ class Heading extends StatelessWidget {
   }
 }
 
-class BottomNavbar extends StatelessWidget {
+class BottomNavbar extends StatefulWidget {
   const BottomNavbar({Key? key}) : super(key: key);
+
+  @override
+  State<BottomNavbar> createState() => _BottomNavbarState();
+}
+
+class _BottomNavbarState extends State<BottomNavbar> {
+  int currentIndex = 0;
+
+  void onItemTapped(int index) {
+    setState(() {
+      currentIndex = index;
+    });
+     switch (currentIndex) {
+      case 0:
+        Navigator.pushNamed(context, "/home");
+        break;
+      case 1:
+        Navigator.pushNamed(context, "/search");
+        break;
+      case 2:
+        Navigator.pushNamed(context, "/video");
+        break;
+      case 3:
+        Navigator.pushNamed(context, "/profile");
+        break;
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
     return BottomNavigationBar(
-      showSelectedLabels: false,
-      showUnselectedLabels: false,
+      type: BottomNavigationBarType.fixed,
+      selectedItemColor: Colors.grey,
+      currentIndex: currentIndex,
+      onTap: (index) => onItemTapped(index),
       items: const [
         BottomNavigationBarItem(
           backgroundColor: Colors.white10,
           icon: Icon(
             Icons.home,
-            color: Colors.grey,
             semanticLabel: "home",
           ),
           label: "home",
@@ -435,22 +463,19 @@ class BottomNavbar extends StatelessWidget {
         BottomNavigationBarItem(
           icon: Icon(
             Icons.search,
-            color: Colors.grey,
             semanticLabel: "search",
           ),
           label: "search",
         ),
         BottomNavigationBarItem(
           icon: Icon(
-              Icons.video_collection_rounded,
-              color: Colors.grey
+            Icons.video_collection_rounded,
           ),
           label: "video",
         ),
         BottomNavigationBarItem(
           icon: Icon(
-              Icons.person_rounded,
-              color: Colors.grey
+            Icons.person_rounded,
           ),
           label: "profile",
         )
