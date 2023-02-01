@@ -18,7 +18,7 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
         title: "IMDB Clone",
         theme: ThemeData(
-          brightness: Brightness.dark,
+          brightness: Brightness.light,
         ),
         debugShowCheckedModeBanner: false,
       initialRoute: "/home",

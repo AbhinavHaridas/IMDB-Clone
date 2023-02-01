@@ -229,7 +229,8 @@ class MovieItem extends StatelessWidget {
                       child: Text(
                         rating,
                         style: const TextStyle(
-                            fontSize: 15.0
+                            fontSize: 15.0,
+                            color: Colors.grey,
                         ),
                       ),
                     ),
@@ -238,7 +239,8 @@ class MovieItem extends StatelessWidget {
                       child: Text(
                         name,
                         style: const TextStyle(
-                            fontSize: 15.0
+                            fontSize: 15.0,
+                            color: Colors.grey,
                         ),
                       ),
                     ),
@@ -249,15 +251,15 @@ class MovieItem extends StatelessWidget {
                         children: [
                           Text(year, style: const TextStyle(
                               fontSize: 15.0,
-                              color: Colors.grey
+                              color: Colors.grey,
                           ),),
                           Text(age, style: const TextStyle(
                               fontSize: 15.0,
-                              color: Colors.grey
+                              color: Colors.grey,
                           ),),
                           Text(time, style: const TextStyle(
                               fontSize: 15.0,
-                              color: Colors.grey
+                              color: Colors.grey,
                           ),)
                         ],
                       ),
@@ -367,12 +369,18 @@ class SmallInfo extends StatelessWidget {
               ),
               child: Row(
                 children:  [
-                  Text(info1),
+                  Text(info1,
+                    style: const TextStyle(
+                        color: Colors.grey
+                    ),),
                   const VerticalDivider(
                     color: Colors.grey,
                     width: 21,
                   ),
-                  Text(info2)
+                  Text(info2,
+                      style: const TextStyle(
+                      color: Colors.grey
+                  ),)
                 ],
               ),
             )
@@ -451,6 +459,11 @@ class _BottomNavbarState extends State<BottomNavbar> {
       selectedItemColor: Colors.grey,
       currentIndex: currentIndex,
       onTap: (index) => onItemTapped(index),
+      backgroundColor: Colors.grey[900],
+      unselectedItemColor: Colors.grey,
+      selectedLabelStyle: const TextStyle(
+          color: Colors.grey
+      ),
       items: const [
         BottomNavigationBarItem(
           backgroundColor: Colors.white10,
@@ -543,7 +556,8 @@ class Inside extends StatelessWidget {
             child: Text(
               title,
               style: const TextStyle(
-                  fontSize: 15.0
+                  fontSize: 15.0,
+                  color: Colors.white,
               ),
             ),
           ),
