@@ -5,8 +5,16 @@ import 'package:imdb_clone/screens/search.dart';
 import "package:imdb_clone/screens/signin.dart";
 import "package:imdb_clone/screens/signup.dart";
 import 'package:imdb_clone/screens/video.dart';
+import 'package:firebase_core/firebase_core.dart';
+import 'firebase_options.dart';
 
-void main() {
+
+
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp(
+      options: DefaultFirebaseOptions.currentPlatform
+  );
   runApp(MyApp());
 }
 
@@ -21,10 +29,11 @@ class MyApp extends StatelessWidget {
           brightness: Brightness.light,
         ),
         debugShowCheckedModeBanner: false,
-      initialRoute: "/home",
+      initialRoute: "/signin",
       routes: {
           "/": (context) => const SignIn(),
         "/home": (context) => const HomeScreen(),
+        "/signin": (context) => const SignIn(),
         "/signup": (context) => const SignUp(),
         "/search": (context) => const SearchPage(),
         "/video": (context) => const VideoPage(),
@@ -32,6 +41,7 @@ class MyApp extends StatelessWidget {
       },
     );
   }
+
 }
 
 

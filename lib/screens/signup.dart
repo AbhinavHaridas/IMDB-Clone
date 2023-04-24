@@ -1,5 +1,6 @@
 import "package:flutter/material.dart";
-
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'dart:io' show Platform;
 
 class Header extends StatelessWidget {
   const Header({Key? key}) : super(key: key);
@@ -28,12 +29,27 @@ class SignUp extends StatefulWidget {
 class _SignUpState extends State<SignUp> {
   final _formKey = GlobalKey<FormState>();
 
-  var _user;
-  var _password;
-  var _email;
+  dynamic _user;
+  dynamic _password;
+  dynamic _email;
 
   @override
   Widget build(BuildContext context) {
+
+   // Defines the return value which is inserted in the database
+   CollectionReference users = FirebaseFirestore.instance.collection('users');
+
+    // Function that performs the add operation in the database
+    Future<void> addUser() {
+      return users.add({
+        'email': _email,
+        'password': _password,
+        'user': _user
+      })
+      .then((value) => print("User added"))
+      .catchError((error) => print("User could not be added"));
+    }
+
     return Scaffold(
       backgroundColor: Colors.white,
       appBar: AppBar(
@@ -44,7 +60,6 @@ class _SignUpState extends State<SignUp> {
           key: _formKey,
           child: Column(
             children: <Widget> [
-
               Container(
                 alignment: Alignment.centerLeft,
                 margin: const EdgeInsets.only(top: 20),
@@ -151,6 +166,8 @@ class _SignUpState extends State<SignUp> {
                         print(_user);
                         print(_password);
                         print(_email);
+                        addUser();
+                        Navigator.pushNamed(context, "/signin");
                       }
                   },
                   style: ButtonStyle(

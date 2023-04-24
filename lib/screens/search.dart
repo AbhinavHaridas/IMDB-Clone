@@ -6,11 +6,23 @@ class SearchPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const Scaffold(
+    return Scaffold(
       body: Center(
-        child: Text("Search")
+        child: Column(
+          children: const [
+             TextField(
+               decoration: InputDecoration(
+                   labelText: "Search IMDB",
+                   labelStyle: TextStyle(
+                       color: Colors.black,
+                       fontSize: 20
+                   )
+               ),
+             )
+          ],
+        )
       ),
-      bottomNavigationBar: BottomNavbar(),
+      bottomNavigationBar: const BottomNavbar(),
     );
   }
 }

@@ -23,6 +23,9 @@ if (flutterVersionName == null) {
 
 apply plugin: 'com.android.application'
 apply plugin: 'kotlin-android'
+// C1
+apply plugin: 'com.google.gms.google-services'
+// C1
 apply from: "$flutterRoot/packages/flutter_tools/gradle/flutter.gradle"
 
 android {
@@ -44,10 +47,10 @@ android {
 
     defaultConfig {
         // TODO: Specify your own unique Application ID (https://developer.android.com/studio/build/application-id.html).
-        applicationId "com.example.imdb_clone"
+        applicationId "com.abhinav.imdb_clone"
         // You can update the following values to match your application needs.
         // For more information, see: https://docs.flutter.dev/deployment/android#reviewing-the-build-configuration.
-        minSdkVersion flutter.minSdkVersion
+        minSdkVersion 21
         targetSdkVersion flutter.targetSdkVersion
         versionCode flutterVersionCode.toInteger()
         versionName flutterVersionName
@@ -67,5 +70,10 @@ flutter {
 }
 
 dependencies {
+    // C2
+    implementation platform('com.google.firebase:firebase-bom:31.2.2')
+    implementation 'com.google.firebase:firebase-analytics-ktx'
+    // C2
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
+    implementation "com.android.support:multidex:1.0.3"
 }
