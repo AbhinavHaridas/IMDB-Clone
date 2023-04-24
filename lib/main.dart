@@ -1,6 +1,20 @@
 import "package:flutter/material.dart";
+import "package:imdb_clone/screens/home.dart";
+import 'package:imdb_clone/screens/profile.dart';
+import 'package:imdb_clone/screens/search.dart';
+import "package:imdb_clone/screens/signin.dart";
+import "package:imdb_clone/screens/signup.dart";
+import 'package:imdb_clone/screens/video.dart';
+import 'package:firebase_core/firebase_core.dart';
+import 'firebase_options.dart';
 
-void main() {
+
+
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp(
+      options: DefaultFirebaseOptions.currentPlatform
+  );
   runApp(MyApp());
 }
 
@@ -12,51 +26,22 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
         title: "IMDB Clone",
         theme: ThemeData(
-          brightness: Brightness.dark,
+          brightness: Brightness.light,
         ),
         debugShowCheckedModeBanner: false,
-        home: const Scaffold(
-          backgroundColor: Colors.black,
-            body: Center(
-              child: Text("Featured today",
-                style: TextStyle(
-                    fontSize: 30.0,
-                    color: Colors.amberAccent,
-                    fontWeight: FontWeight.bold
-                ),),
-          ),
-          bottomNavigationBar: BottomNavbar(),
-          ),
-          );
-  }
-}
-
-class BottomNavbar extends StatelessWidget {
-  const BottomNavbar({Key? key}) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return BottomNavigationBar(
-      selectedItemColor: Colors.amberAccent,
-      items: const [
-      BottomNavigationBarItem(
-      icon: Icon(Icons.home),
-      label: "home",
-      ),
-      BottomNavigationBarItem(
-      icon: Icon(Icons.search),
-      label: "search",
-      ),
-      BottomNavigationBarItem(
-          icon: Icon(Icons.video_collection_rounded),
-          label: "video",
-      ),
-      BottomNavigationBarItem(
-          icon: Icon(Icons.person_rounded),
-          label: "profile",
-      )
-      ],
+      initialRoute: "/signin",
+      routes: {
+          "/": (context) => const SignIn(),
+        "/home": (context) => const HomeScreen(),
+        "/signin": (context) => const SignIn(),
+        "/signup": (context) => const SignUp(),
+        "/search": (context) => const SearchPage(),
+        "/video": (context) => const VideoPage(),
+        "/profile": (context) => const ProfilePage()
+      },
     );
   }
+
 }
+
 
