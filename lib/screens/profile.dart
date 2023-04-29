@@ -2,7 +2,8 @@ import "package:flutter/material.dart";
 import "package:imdb_clone/screens/home.dart";
 
 class ProfilePage extends StatelessWidget {
-  const ProfilePage({Key? key}) : super(key: key);
+  final Map<String, dynamic>? data;
+  const ProfilePage({this.data, Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -12,7 +13,7 @@ class ProfilePage extends StatelessWidget {
         scrollDirection: Axis.vertical,
         child: Column(
           children: [
-            const UserInfo(),
+            UserInfo(data: data),
             const ListsAndReviews(),
             Container(
               margin: const EdgeInsets.only(top: 20.0),
@@ -21,9 +22,18 @@ class ProfilePage extends StatelessWidget {
               ),
               child: Column(
                 children: const [
-                  Suggestions(
+                  MovieTile(
                     title: "Your Watchlist",
                     description: "",
+                    names: ["The God Father",
+                      "Casablanca",
+                      "The Shawshank Redemption",
+                      "The Dark Knight",
+                      "Citizen Kane",
+                      "Schindler's List",
+                      "Pulp Fiction",
+                      "Titanic",
+                      "Goodfellas"],
                   )
                 ],
               ),
@@ -35,9 +45,18 @@ class ProfilePage extends StatelessWidget {
               ),
               child: Column(
                 children: const [
-                  Suggestions(
+                  MovieTile(
                     title: "Recently Viewed",
                     description: "",
+                    names: ["The Godfather",
+                      "Casablanca",
+                      "The Shawshank Redemption",
+                      "The Dark Knight",
+                      "Citizen Kane",
+                      "Schindler's List",
+                      "Pulp Fiction",
+                      "Titanic",
+                      "Goodfellas"],
                   )
                 ],
               ),
@@ -52,44 +71,49 @@ class ProfilePage extends StatelessWidget {
         ),
       ),
 
-      bottomNavigationBar: const BottomNavbar(),
     );
   }
 }
 
 class UserInfo extends StatelessWidget {
-  const UserInfo({Key? key}) : super(key: key);
+  final Map<String, dynamic>? data;
+  const UserInfo({this.data, Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
+
     return Row(
+      mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
-        Container(
-          padding: const EdgeInsets.only(left: 20.0, top: 60.0),
-          child: const Icon(
-            Icons.person_rounded,
-            color: Colors.white,
-          ),
-        ),
-        Container(
-            padding: const EdgeInsets.only(left: 20.0, top: 60.0),
-            child: const Text(
-              "Abhinav",
-              style: TextStyle(
-                  fontSize: 25,
-                  color: Colors.white,
-                  fontWeight: FontWeight.bold
+        Row(
+          children: [
+            Container(
+              padding: const EdgeInsets.only(top: 60.0, left: 20.0),
+              child: const Icon(
+                Icons.person_rounded,
+                color: Colors.white,
               ),
+            ),
+            Container(
+                padding: const EdgeInsets.only(top: 60.0, left: 20.0),
+                child: Text(
+                  (data!['user'] == null)? "null": data!['user'],
+                  style: const TextStyle(
+                      fontSize: 25,
+                      color: Colors.white,
+                      fontWeight: FontWeight.bold
+                  ),
+                )
             )
+          ],
         ),
         Container(
-          padding: const EdgeInsets.only(top: 60.0, left: 200.0),
+          padding: const EdgeInsets.only(top: 60.0, right: 20.0),
           child: const Icon(
             Icons.settings,
             color: Colors.white,
           ),
         ),
-
       ],
     );
   }
