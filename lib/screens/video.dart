@@ -10,7 +10,6 @@ class VideoPage extends StatelessWidget {
       body: Center(
           child: Text("Video")
       ),
-      bottomNavigationBar: BottomNavbar(),
     );
   }
 }

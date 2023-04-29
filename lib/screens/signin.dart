@@ -1,5 +1,8 @@
+import 'dart:convert';
+
 import "package:flutter/material.dart";
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:imdb_clone/screens/profile.dart';
 
 class SignIn extends StatelessWidget {
   const SignIn({Key? key}) : super(key: key);
@@ -148,9 +151,19 @@ class _BodyState extends State<Body> {
                 Query userQuery = findUser();
                 userQuery.get().then((response) {
                   if (response.docs.isNotEmpty) {
+                    // Printing the response data
+                    List<Map<String, dynamic>> data = [];
+                    response.docs.forEach((doc) {
+                      data.add(doc.data() as Map<String, dynamic>);
+                      print(data);
+                    });
                     // If the response is not empty it goes to home page
                     setState(() {
-                      Navigator.pushNamed(context, '/home');
+                      Navigator.pushNamed(
+                          context,
+                          '/screens',
+                           arguments: data[0] // Passing the data about user (As data would be different for each user) as an argument
+                      );
                     });
                   }});
               }

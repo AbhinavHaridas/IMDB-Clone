@@ -7,6 +7,7 @@ import "package:imdb_clone/screens/signup.dart";
 import 'package:imdb_clone/screens/video.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'firebase_options.dart';
+import 'selectscreen.dart';
 
 
 
@@ -35,9 +36,10 @@ class MyApp extends StatelessWidget {
         "/home": (context) => const HomeScreen(),
         "/signin": (context) => const SignIn(),
         "/signup": (context) => const SignUp(),
-        "/search": (context) => const SearchPage(),
+        "/search": (context) => const SearchScreen(),
         "/video": (context) => const VideoPage(),
-        "/profile": (context) => const ProfilePage()
+        "/profile": (context) => const ProfilePage(data: {},),
+        "/screens": (context) => const ScreenSelect(),
       },
     );
   }
