@@ -1,7 +1,6 @@
 # IMDb Clone
 
-This is a simple IMDb clone built using Flutter. The app provides users with the ability to browse movies, TV shows and celebrities, search for their favorite media, and view detailed information about them. Users can also create an account, log in, and save their favorite media.
-
+This is a simple IMDb clone built using Flutter. The app provides users with the ability to browse movies, TV shows. Users can also create an account and log in
 <br/>
 
 ## Features
