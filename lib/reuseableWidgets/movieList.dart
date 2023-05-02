@@ -3,16 +3,17 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'dart:convert';
 import 'package:http/http.dart' as http;
+import 'package:imdb_clone/screens/home.dart';
+import 'package:imdb_clone/secrets.dart';
 
-class MovieItem extends StatelessWidget {
-  const MovieItem(
-      {required this.name,
-      required this.link,
-      required this.rating,
-      required this.year,
-      required this.age,
-      required this.time,
-      super.key});
+class MovieItem extends StatefulWidget {
+  const MovieItem({required this.name,
+    required this.link,
+    required this.rating,
+    required this.year,
+    required this.age,
+    required this.time,
+    super.key});
 
   final String name;
   final String link;
@@ -22,107 +23,121 @@ class MovieItem extends StatelessWidget {
   final String time;
 
   @override
+  State<MovieItem> createState() => _MovieItemState();
+}
+
+class _MovieItemState extends State<MovieItem> {
+  @override
   Widget build(BuildContext context) {
-    return Container(
-        decoration: BoxDecoration(
-          color: Colors.white10,
-          borderRadius: BorderRadius.circular(10),
-          boxShadow: const [BoxShadow(color: Colors.black87, blurRadius: 5.0)],
-        ),
-        width: 150,
-        height: 350,
-        margin: const EdgeInsets.only(
-          left: 12.0,
-        ),
-        // padding: const EdgeInsets.only(left: 5.0),
-        child: Column(
-          children: [
-            Image(
-                image: ResizeImage(
-              NetworkImage(link),
-              width: 150,
-              height: 190,
-            )),
-            SizedBox(
-                width: 200,
-                child: Column(
-                  children: [
-                    Container(
-                      margin: const EdgeInsets.only(top: 12),
-                      child: Text(
-                        rating,
-                        style: const TextStyle(
-                          fontSize: 14.0,
-                          color: Colors.white,
+    return GestureDetector(
+      onTap: () {
+        print("Clicked");
+        setState(() {
+          Navigator.pushNamed(context, '/mediainfo', arguments: {"name": widget.name});
+        });
+      },
+      child: Container(
+          decoration: BoxDecoration(
+            color: Colors.white10,
+            borderRadius: BorderRadius.circular(10),
+            boxShadow: const [BoxShadow(color: Colors.black87, blurRadius: 5.0)],
+          ),
+          width: 150,
+          height: 350,
+          margin: const EdgeInsets.only(
+            left: 12.0,
+          ),
+          // padding: const EdgeInsets.only(left: 5.0),
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.start,
+            children: [
+              Image(
+                  image: ResizeImage(
+                    NetworkImage(widget.link),
+                    width: 150,
+                    height: 190,
+                  )),
+              SizedBox(
+                  width: 200,
+                  child: Column(
+                    children: [
+                      Container(
+                        margin: const EdgeInsets.only(top: 12),
+                        child: Text(
+                          widget.rating,
+                          style: const TextStyle(
+                            fontSize: 14.0,
+                            color: Colors.white,
+                          ),
                         ),
                       ),
-                    ),
-                    Container(
-                      margin: const EdgeInsets.only(top: 12),
-                      child: Text(
-                        name,
-                        textAlign: TextAlign.left,
-                        style: const TextStyle(
-                          fontSize: 14.0,
-                          color: Colors.white,
+                      Container(
+                        margin: const EdgeInsets.only(top: 12),
+                        child: Text(
+                          widget.name,
+                          textAlign: TextAlign.left,
+                          style: const TextStyle(
+                            fontSize: 14.0,
+                            color: Colors.white,
+                          ),
                         ),
                       ),
-                    ),
-                    Container(
-                      margin: const EdgeInsets.only(top: 12),
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.start,
-                        children: [
-                          Text(
-                            year,
-                            style: const TextStyle(
+                      Container(
+                        margin: const EdgeInsets.only(top: 15),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Text(
+                              widget.year,
+                              style: const TextStyle(
+                                fontSize: 12.0,
+                                color: Colors.grey,
+                              ),
+                            ),
+                            Container(
+                              margin: const EdgeInsets.only(left: 4.0),
+                              child: Text(
+                                widget.age,
+                                style: const TextStyle(
+                                  fontSize: 12.0,
+                                  color: Colors.grey,
+                                ),
+                              ),
+                            ),
+                            Container(
+                              margin: const EdgeInsets.only(left: 5),
+                              child: Text(
+                                widget.time,
+                                style: const TextStyle(
+                                  fontSize: 12.0,
+                                  color: Colors.grey,
+                                ),
+                              ),
+                            )
+                          ],
+                        ),
+                      ),
+                      Container(
+                        padding: const EdgeInsets.only(
+                            top: 8.0, left: 10.0, right: 10.0, bottom: 8.0),
+                        margin: const EdgeInsets.only(top: 12.0),
+                        decoration: BoxDecoration(
+                            border: Border.all(
+                              color: Colors.blueGrey,
+                            )),
+                        child: const Text(
+                          "Watch options",
+                          style: TextStyle(
                               fontSize: 12.0,
-                              color: Colors.grey,
-                            ),
-                          ),
-                          Container(
-                            margin: const EdgeInsets.only(left: 4.0),
-                            child: Text(
-                              age,
-                              style: const TextStyle(
-                                fontSize: 12.0,
-                                color: Colors.grey,
-                              ),
-                            ),
-                          ),
-                          Container(
-                            margin: const EdgeInsets.only(left: 5),
-                            child: Text(
-                              time,
-                              style: const TextStyle(
-                                fontSize: 12.0,
-                                color: Colors.grey,
-                              ),
-                            ),
-                          )
-                        ],
-                      ),
-                    ),
-                    Container(
-                      padding: const EdgeInsets.only(
-                          top: 8.0, left: 10.0, right: 10.0, bottom: 8.0),
-                      margin: const EdgeInsets.only(top: 12.0),
-                      decoration: BoxDecoration(
-                          border: Border.all(
-                        color: Colors.blueGrey,
-                      )),
-                      child: const Text(
-                        "Watch options",
-                        style: TextStyle(
-                            fontSize: 12.0,
-                            fontWeight: FontWeight.bold,
-                            color: Colors.blue),
-                      ),
-                    )
-                  ],
-                ))
-          ],
-        ));
+                              fontWeight: FontWeight.bold,
+                              color: Colors.blue),
+                        ),
+                      )
+                    ],
+                  ))
+            ],
+          )),
+    );
   }
 }
 
@@ -155,7 +170,7 @@ class _MovieListState extends State<MovieList> {
 
     // Store all the ids of the movies
     for (int i = 0; i < names.length; i++) {
-        String url = "http://www.omdbapi.com/?s=${names[i]}&&apikey=1f2d1955";
+        String url = "http://www.omdbapi.com/?s=${names[i]}&&apikey=${API_KEY}";
         try {
           final response = await http.get(Uri.parse((url)));
           final result = jsonDecode(response.body);
@@ -169,7 +184,7 @@ class _MovieListState extends State<MovieList> {
 
     // Using those ids for detailed info on the movies
     for (int i = 0; i < ids.length; i++) {
-      String url = "http://www.omdbapi.com/?i=${ids[i]}&&apikey=1f2d1955";
+      String url = "http://www.omdbapi.com/?i=${ids[i]}&&apikey=${API_KEY}";
 
       try {
         final response = await http.get(Uri.parse(url));

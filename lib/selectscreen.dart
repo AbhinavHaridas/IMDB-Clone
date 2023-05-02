@@ -21,7 +21,7 @@ class _ScreenSelectState extends State<ScreenSelect> {
     super.initState();
     // These are all the screens accessible from the bottom navbar
     screens = [
-      HomeScreen(data: data),
+      const HomeScreen(),
       const SearchScreen(),
       const VideoPage(),
       ProfilePage(data: data),
@@ -38,7 +38,7 @@ class _ScreenSelectState extends State<ScreenSelect> {
       data = args;
       // updating profile screen
       screens = [
-        HomeScreen(data: data),
+        const HomeScreen(),
         const SearchScreen(),
         const VideoPage(),
         ProfilePage(data: data),
