@@ -15,7 +15,6 @@ The app currently includes the following features:
 
 <br/>
 
-
 ## Acknowledgment
 
 - The [Flutter documentation](https://docs.flutter.dev/) was incredibly helpful in building this app.
