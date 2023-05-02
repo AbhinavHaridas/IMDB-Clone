@@ -1,13 +1,64 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import "package:flutter/material.dart";
-import 'package:imdb_clone/screens/profile.dart';
-import 'package:imdb_clone/screens/search.dart';
-import 'package:imdb_clone/screens/video.dart';
-
 import '../reuseableWidgets/movieList.dart';
 
 class HomeScreen extends StatelessWidget {
-  final Map<String, dynamic>? data;
+  final String? data;
   const HomeScreen({this.data, Key? key}) : super(key: key);
+
+  // Fetching names asynchronously
+  Future<List<String>> _fetchNames(String type) async {
+    if (type == 'genfavourites') {
+      // get movie collection
+      CollectionReference movies = FirebaseFirestore.instance.collection('movies');
+      List<Map<String, dynamic>> data = [];
+      List<String> names = [];
+      Query<Object?> movieQuery = movies;
+      QuerySnapshot<Object?> response = await movieQuery.get();
+      if (response.docs.isNotEmpty) {
+        // get data
+        for (int i = 0; i < response.docs.length; i++) {
+          QueryDocumentSnapshot doc = response.docs[i];
+          data.add(doc.data() as Map<String, dynamic>);
+        }
+        // Add title from data to names
+        for (int i = 0; i < data.length; i++) {
+          names.add(data[i]["title"]);
+        }
+        print(names);
+        return names;
+      } else {
+        print("Shit is empty");
+        return [];
+      }
+    } else {
+      // get movie collection
+      CollectionReference users = FirebaseFirestore.instance.collection('users');
+      DocumentReference<Object?> moviesRef = users.doc('b9MxNH1qiyrmbeNzn0C4');
+      // Getting to the required type list
+      CollectionReference movies = moviesRef.collection(type);
+      List<Map<String, dynamic>> data = [];
+      List<String> names = [];
+      Query<Object?> movieQuery = movies;
+      QuerySnapshot<Object?> response = await movieQuery.get();
+      if (response.docs.isNotEmpty) {
+        // get data
+        for (int i = 0; i < response.docs.length; i++) {
+          QueryDocumentSnapshot doc = response.docs[i];
+          data.add(doc.data() as Map<String, dynamic>);
+        }
+        // Add title from data to names
+        for (int i = 0; i < data.length; i++) {
+          names.add(data[i]["title"]);
+        }
+        print(names);
+        return names;
+      } else {
+        print("Shit is empty");
+        return [];
+      }
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -39,23 +90,23 @@ class HomeScreen extends StatelessWidget {
               color: Colors.white10,
               padding: const EdgeInsets.only(top: 30.0, bottom: 30.0),
               child: Column(
-                children: const [
-                  Heading(title: "What to watch"),
-                  MovieTile(
-                    title: "From your Watchlist",
-                    description:
-                        "Shows and movies available to watch from your watch list",
-                    names: [
-                      "The God Father",
-                      "Casablanca",
-                      "The Shawshank Redemption",
-                      "The Dark Knight",
-                      "Citizen Kane",
-                      "Schindler's List",
-                      "Pulp Fiction",
-                      "Titanic",
-                      "Goodfellas"
-                    ],
+                children: [
+                  const Heading(title: "What to watch"),
+                  FutureBuilder<List<String>>(
+                    future: _fetchNames('watchlist'),
+                    builder: (context, snapshot) {
+                      print(snapshot);
+                      if (snapshot.hasData) {
+                        return MovieTile(
+                          title: "From your Watchlist",
+                          description:
+                          "Shows and movies available to watch from your watch list",
+                          names: snapshot.data!,
+                        );
+                      } else {
+                        return const Text("Nothing is here");
+                      }
+                    },
                   )
                 ],
               ),
@@ -65,39 +116,40 @@ class HomeScreen extends StatelessWidget {
               margin: const EdgeInsets.only(top: 15.0),
               padding: const EdgeInsets.only(bottom: 30.0),
               child: const MovieTile(
-                  title: "Top picks for you",
-                  description: "TV shows and movies just for you",
-                  names: [
-                    "The God Father",
-                    "Casablanca",
-                    "The Shawshank Redemption",
-                    "The Dark Knight",
-                    "Citizen Kane",
-                    "Schindler's List",
-                    "Pulp Fiction",
-                    "Titanic",
-                    "Goodfellas"
-                  ],
+                title: "Top picks for you",
+                description: "TV shows and movies just for you",
+                names: [
+                  "The God Father",
+                  "Casablanca",
+                  "The Batman",
+                  "The Dark Knight",
+                  "Citizen Kane",
+                  "Schindler's List",
+                  "Pulp Fiction",
+                  "Titanic",
+                  "Goodfellas"
+                ],
               ),
             ),
             Container(
-              color: Colors.white10,
-              margin: const EdgeInsets.only(top: 10.0),
-              padding: const EdgeInsets.only(bottom: 30.0),
-              child: const MovieTile(
-                  title: "Fan favourites",
-                  description: "This week's top TV shows and movies",
-                  names: ["The God Father",
-                    "Casablanca",
-                    "The Shawshank Redemption",
-                    "The Dark Knight",
-                    "Citizen Kane",
-                    "Schindler's List",
-                    "Pulp Fiction",
-                    "Titanic",
-                    "Goodfellas"],
-              ),
-            )
+                color: Colors.white10,
+                margin: const EdgeInsets.only(top: 10.0),
+                padding: const EdgeInsets.only(bottom: 30.0),
+                child: FutureBuilder<List<String>>(
+                  future: _fetchNames('genfavourites'),
+                  builder: (context, snapshot) {
+                    print(snapshot);
+                    if (snapshot.hasData) {
+                      return MovieTile(
+                        title: "Fan favourites",
+                        description: "This week's top TV shows and movies",
+                        names: snapshot.data!,
+                      );
+                    } else {
+                      return const Text("Nothing is here");
+                    }
+                  },
+                ))
           ],
         ),
       ),
@@ -111,7 +163,10 @@ class MovieTile extends StatelessWidget {
   final List<String> names;
 
   const MovieTile(
-      {required this.title, required this.description, required this.names, super.key});
+      {required this.title,
+      required this.description,
+      required this.names,
+      super.key});
 
   @override
   Widget build(BuildContext context) {

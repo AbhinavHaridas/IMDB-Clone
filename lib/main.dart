@@ -1,5 +1,6 @@
 import "package:flutter/material.dart";
 import "package:imdb_clone/screens/home.dart";
+import 'package:imdb_clone/screens/mediainfo.dart';
 import 'package:imdb_clone/screens/profile.dart';
 import 'package:imdb_clone/screens/search.dart';
 import "package:imdb_clone/screens/signin.dart";
@@ -40,6 +41,7 @@ class MyApp extends StatelessWidget {
         "/video": (context) => const VideoPage(),
         "/profile": (context) => const ProfilePage(data: {},),
         "/screens": (context) => const ScreenSelect(),
+        "/mediainfo": (context) => const MediaInfo()
       },
     );
   }
