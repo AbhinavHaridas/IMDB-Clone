@@ -19,7 +19,6 @@ class _ScreenSelectState extends State<ScreenSelect> {
   @override
   void initState() {
     super.initState();
-    // These are all the screens accessible from the bottom navbar
     screens = [
       const HomeScreen(),
       const SearchScreen(),

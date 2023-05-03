@@ -62,17 +62,27 @@ class _MovieItemState extends State<MovieItem> {
                   child: Column(
                     children: [
                       Container(
+                        padding: const EdgeInsets.only(left: 4),
                         margin: const EdgeInsets.only(top: 12),
-                        child: Text(
-                          widget.rating,
-                          style: const TextStyle(
-                            fontSize: 14.0,
-                            color: Colors.white,
+                        child: Row(
+                          children: [
+                            const Icon(Icons.star, color: Colors.yellow, size: 14.0),
+                            Container(
+                                margin: const EdgeInsets.only(left: 8),
+                                child: Text(
+                                  widget.rating,
+                                  style: const TextStyle(
+                                    fontSize: 14.0,
+                                    color: Colors.white,
+                                  ),
+                                )
+                            )
+                          ],
                           ),
-                        ),
                       ),
                       Container(
-                        margin: const EdgeInsets.only(top: 12),
+                        width: double.infinity,
+                        margin: const EdgeInsets.only(top: 12, left: 8),
                         child: Text(
                           widget.name,
                           textAlign: TextAlign.left,
@@ -83,9 +93,10 @@ class _MovieItemState extends State<MovieItem> {
                         ),
                       ),
                       Container(
-                        margin: const EdgeInsets.only(top: 15),
+                        margin: const EdgeInsets.only(top: 15, left: 8),
+                        width: double.infinity,
                         child: Row(
-                          mainAxisAlignment: MainAxisAlignment.center,
+                          mainAxisAlignment: MainAxisAlignment.start,
                           children: [
                             Text(
                               widget.year,
@@ -117,20 +128,24 @@ class _MovieItemState extends State<MovieItem> {
                           ],
                         ),
                       ),
-                      Container(
-                        padding: const EdgeInsets.only(
-                            top: 8.0, left: 10.0, right: 10.0, bottom: 8.0),
-                        margin: const EdgeInsets.only(top: 12.0),
-                        decoration: BoxDecoration(
-                            border: Border.all(
-                              color: Colors.blueGrey,
-                            )),
-                        child: const Text(
-                          "Watch options",
-                          style: TextStyle(
-                              fontSize: 12.0,
-                              fontWeight: FontWeight.bold,
-                              color: Colors.blue),
+                      Align(
+                        alignment: Alignment.centerLeft,
+                        child: Container(
+                          width: 100,
+                          padding: const EdgeInsets.only(top: 8.0,  bottom: 8.0),
+                          margin: const EdgeInsets.only(top: 12.0, left: 5),
+                          decoration: BoxDecoration(
+                              border: Border.all(
+                                color: Colors.blueGrey,
+                              )),
+                          child: const Text(
+                            "Watch options",
+                            textAlign: TextAlign.center,
+                            style: TextStyle(
+                                fontSize: 12.0,
+                                fontWeight: FontWeight.bold,
+                                color: Colors.blue),
+                          ),
                         ),
                       )
                     ],

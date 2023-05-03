@@ -46,7 +46,9 @@ class MediaInfo extends StatelessWidget {
             return DisplayMediaInfo(
                 data: snapshot.data as Map<String, dynamic>);
           } else {
-            return const CircularProgressIndicator();
+            return const Center(
+              child: CircularProgressIndicator(),
+            );
           }
         },
       ),
@@ -149,6 +151,7 @@ class DisplayMediaInfo extends StatelessWidget {
                            child: Text(
                              (data["Plot"] == null) ? "" : data["Plot"],
                              style: const TextStyle(color: Colors.white),
+                             textAlign: TextAlign.start,
                            ),
                          ),
                        ],
@@ -269,6 +272,20 @@ class CastSection extends StatelessWidget {
         required this.directors,
         required this.writers,
         super.key});
+  
+  Widget createTitle(name) {
+   return Container(
+    margin: const EdgeInsets.only(left: 10, bottom: 5),
+    width: double.infinity,
+    child: Text(name, style: const TextStyle(fontSize: 15, color: Colors.white), textAlign: TextAlign.start,));
+  }
+
+  Widget createPeople(names) {
+    return Container(
+        margin: const EdgeInsets.only(left: 10, bottom: 10),
+    width: double.infinity,
+    child: Text(names, style: const TextStyle(fontSize: 12, color: Colors.grey), textAlign: TextAlign.start));
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -334,29 +351,31 @@ class CastSection extends StatelessWidget {
                 children: [
                   Container(
                       width: double.infinity,
-                      margin: const EdgeInsets.only(top: 4),
+                      margin: const EdgeInsets.only(top: 15),
                       child: Column(
                         children: [
-                          const Text("Actors", style: TextStyle(fontSize: 15, color: Colors.white), textAlign: TextAlign.end,),
-                          Text(cast, style: const TextStyle(fontSize: 12, color: Colors.grey), textAlign: TextAlign.end,)
+                          createTitle("Actors"),
+                          createPeople(cast) 
                         ],
                       )
                   ),
                   Container(
-                      margin: const EdgeInsets.only(top: 4),
+                      width: double.infinity,
+                      margin: const EdgeInsets.only(top: 10),
                       child: Column(
                         children: [
-                          const Text("Directors", style: TextStyle(fontSize: 15, color: Colors.white),),
-                          Text(directors, style: const TextStyle(fontSize: 12, color: Colors.grey))
+                          createTitle("Directors"),
+                          createPeople(directors)
                         ],
                       )
                   ),
                   Container(
-                      margin: const EdgeInsets.only(top: 4),
+                      width: double.infinity,
+                      margin: const EdgeInsets.only(top: 10),
                       child: Column(
                         children: [
-                          const Text("Writers", style: TextStyle(fontSize: 15, color: Colors.white),),
-                          Text(writers, style: const TextStyle(fontSize: 12, color: Colors.grey))
+                          createTitle("Writers"),
+                          createPeople(writers)
                         ],
                       )
                   ),
@@ -367,4 +386,5 @@ class CastSection extends StatelessWidget {
       );
   }
 }
+
 
