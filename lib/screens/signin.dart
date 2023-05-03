@@ -77,9 +77,11 @@ class _BodyState extends State<Body> {
                   fontWeight: FontWeight.bold,
                   fontSize: 27.0
               ),
-
             ),
           ),
+
+          // SIGN UP SECTION
+
 
           // EMAIL ADDRESS SECTION
           Container(
@@ -139,7 +141,9 @@ class _BodyState extends State<Body> {
               style: const TextStyle(color: Colors.black),
             ),
           ),
-
+          const SizedBox(
+            height: 10,
+          ),
           // LOGIN BUTTON SECTION
           TextButton(
             onPressed:() {
@@ -171,14 +175,24 @@ class _BodyState extends State<Body> {
             style: ButtonStyle(
                 backgroundColor: MaterialStateProperty.all<Color>(
                     Colors.amberAccent
-                )
+                ),
             ),
             child: const Text("Login",
                 style: TextStyle(
                     color: Colors.black
                 )
             ),
-          )
+          ),
+          const SizedBox(
+             height: 10,
+          ),
+          TextButton(onPressed: () {
+            Navigator.pushNamed(context, '/signup');
+          }, style: ButtonStyle(
+            backgroundColor: MaterialStateProperty.all<Color>(
+                Colors.grey
+            ),
+          ), child: const Text("Create a new IMDb account", style: TextStyle(color: Colors.black),))
         ],
       )
     );

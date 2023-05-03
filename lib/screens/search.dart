@@ -1,7 +1,6 @@
 import 'dart:convert';
 
 import 'package:flutter/material.dart';
-import 'package:imdb_clone/screens/home.dart';
 import 'package:http/http.dart' as http;
 import 'package:imdb_clone/secrets.dart';
 
@@ -119,7 +118,7 @@ class TopicSearch extends SearchDelegate<String> {
           child: FutureBuilder(
             future: fetchSearchResults(query), builder: (context, snapshot) {
           if (snapshot.connectionState == ConnectionState.waiting) {
-            return Center(child: CircularProgressIndicator());
+            return const Center(child: CircularProgressIndicator());
           } else if (snapshot.hasError) {
             return Center(child: Text("Error: ${snapshot.error}"));
           } else {

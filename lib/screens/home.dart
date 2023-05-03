@@ -217,11 +217,12 @@ class MovieTile extends StatelessWidget {
           ),
         ),
         Container(
-          margin: const EdgeInsets.only(top: 13.0),
+          margin: const EdgeInsets.only(top: 13.0, left: 8.0),
+          width: double.infinity,
           child: Text(
             description,
             style: const TextStyle(fontSize: 15.0, color: Colors.grey),
-            textAlign: TextAlign.end,
+            textAlign: TextAlign.start,
           ),
         ),
         SingleChildScrollView(
@@ -319,11 +320,11 @@ class FeaturedToday extends StatelessWidget {
             image: "images/lostvshow.jpg",
           ),
           Inside(
-            title: "The Best Movies and Series in January",
+            title: "Most anticipated shows in the summer",
             image: "images/lostvshow.jpg",
           ),
           Inside(
-            title: "The Best Movies and Series in January",
+            title: "This year's oscar winners",
             image: "images/lostvshow.jpg",
           )
         ],
